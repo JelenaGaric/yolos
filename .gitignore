@@ -1,0 +1,6 @@
+BCCD-3/
+__pycache__/
+test-project/
+venv/
+wandb/
+.idea/
