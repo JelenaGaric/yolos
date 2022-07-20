@@ -52,8 +52,11 @@ wandb.init(project="test-project")
 wandb_logger = WandbLogger(project='test-project', log_model=True)
 
 # Keep track of the checkpoint with the lowest validation loss
-checkpoint_callback = ModelCheckpoint(monitor="validation/loss", mode="min")
+checkpoint_callback = ModelCheckpoint(monitor="validation/loss", mode="min", dirpath="model", save_weights_only=True,)
 trainer = Trainer(max_epochs=50, gradient_clip_val=0.1, accumulate_grad_batches=8,  # gpus=1,
                   log_every_n_steps=5, logger=wandb_logger, callbacks=[checkpoint_callback])
 #  checkpoint_callback to log model to W&B at end of training and changed log_every_n_steps=5 to generate better charts
 trainer.fit(model)
+# trainer.fit(model, ckpt_path=ckpt_path)
+ckpt_path = "model/epoch=0-step=32.ckpt"
+model = YoloS.load_from_checkpoint(ckpt_path)

@@ -4,3 +4,4 @@ test-project/
 venv/
 wandb/
 .idea/
+model/
